@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     private int time = 3;
 
-    private static final String COUNT = "count";
+    private static final int MESSAGE_WHAT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_main);
         initView();
         initListener();
-        handler.sendEmptyMessage(0);
+        handler.sendEmptyMessage(MESSAGE_WHAT);
     }
 
     public void initView(){
@@ -38,11 +38,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message message){
-            if(time >= 0){
+            if(time > 0){
                 skipBtn.setText("跳过 " + time + "s");
                 handler.sendEmptyMessageDelayed(0,1000);
             }else {
-                Tools.startActivityWithNothing(SplashActivity.this, MainActivity.class);
+                startMain();
             }
             time--;
             super.handleMessage(message);
@@ -53,7 +53,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.skip_button:
-                Tools.startActivityWithNothing(this, MainActivity.class);
+                startMain();
+                handler.removeMessages(MESSAGE_WHAT);
+                break;
         }
+    }
+
+    private void startMain(){
+        Tools.startActivityWithNothing(this, MainActivity.class);
+        finish();
     }
 }

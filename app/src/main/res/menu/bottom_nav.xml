@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navigation_home"
+        android:icon="@drawable/nav_home"
+        android:title="首页"/>
+    <item android:id="@+id/navigation_know"
+        android:icon="@drawable/nav_know"
+        android:title="体系"/>
+    <item android:id="@+id/navigation_proj"
+        android:icon="@drawable/nav_proj"
+        android:title="项目"/>
+    <item android:id="@+id/navigation_user"
+        android:icon="@drawable/nav_user"
+        android:title="用户"/>
+
+</menu>
