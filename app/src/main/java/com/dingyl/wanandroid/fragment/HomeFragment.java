@@ -119,9 +119,6 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
             homeDataBeans.addAll(homeZipData.getHomeData().getData().getDatas());
         }
         Log.d(TAG,"homeDataBeans size : " + homeDataBeans.size());
-
-
-        //adapter.notifyItemChanged(page * 20);
         urlList.clear();
         titleList.clear();
         for(BannerData.DataBean db:dataBeans){
@@ -133,7 +130,7 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
                 .setImages(urlList)
                 .setBannerTitles(titleList)
                 .isAutoPlay(true)
-                .setDelayTime(3000)
+                .setDelayTime(5000)
                 .setIndicatorGravity(BannerConfig.RIGHT)
                 .start();
     }

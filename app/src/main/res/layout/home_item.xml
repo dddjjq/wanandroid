@@ -55,7 +55,7 @@
             android:layout_marginTop="15dp"
             android:text="Android O 适配指南"
             android:lines="1"
-            android:textSize="18sp"/>
+            android:textSize="15sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,14 +68,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="#2fb5ef"
                 android:text="多媒体技术/音视频"
-                android:textSize="15sp"/>
+                android:textSize="12sp"/>
             <TextView
                 android:id="@+id/item_root_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_green_light"
                 android:text="项目"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/item_root_category"/>
             <Space

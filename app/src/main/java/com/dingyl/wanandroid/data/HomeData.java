@@ -1,5 +1,7 @@
 package com.dingyl.wanandroid.data;
 
+import org.greenrobot.greendao.annotation.Entity;
+
 import java.util.ArrayList;
 
 public class HomeData {
@@ -96,6 +98,7 @@ public class HomeData {
             this.total = total;
         }
 
+        @Entity
         public class DataBean{
             private String apkLink;
             private String author;
