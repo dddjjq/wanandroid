@@ -5,22 +5,27 @@ import android.content.Context;
 import android.util.Log;
 
 import com.dingyl.wanandroid.data.BannerData;
+import com.dingyl.wanandroid.data.HomeData;
+import com.dingyl.wanandroid.data.HomeZipData;
 import com.dingyl.wanandroid.retrofit.RetrofitHelper;
 import com.dingyl.wanandroid.view.BaseView;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 public class HomePresenter extends BasePresenter {
 
     private static final String TAG = "HomePresenter";
-    private BaseView<BannerData> baseView;
+    private BaseView<HomeZipData> baseView;
     private RetrofitHelper retrofitHelper;
     private BannerData mBannerData;
+    private HomeZipData mHomeZipData;
 
     public HomePresenter(Context context){
         retrofitHelper = RetrofitHelper.getInstance(context);
@@ -63,7 +68,45 @@ public class HomePresenter extends BasePresenter {
 
                     @Override
                     public void onComplete() {
-                        baseView.showSuccess(mBannerData);
+                        //baseView.showSuccess(mBannerData);
+                        Log.d(TAG,"onComplete");
+                    }
+                });
+    }
+
+    public void getHomeZipData(int page) {
+        Observable.zip(retrofitHelper.getBannerData(), retrofitHelper.getHomeData(page),
+                new BiFunction<BannerData, HomeData, HomeZipData>() {
+                    @Override
+                    public HomeZipData apply(BannerData bannerData, HomeData homeData) {
+                        HomeZipData homeZipData = new HomeZipData();
+                        homeZipData.setBannerData(bannerData);
+                        homeZipData.setHomeData(homeData);
+                        return homeZipData;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<HomeZipData>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(HomeZipData homeData) {
+                        mHomeZipData = homeData;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        baseView.showError();
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        baseView.showSuccess(mHomeZipData);
                         Log.d(TAG,"onComplete");
                     }
                 });

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.dingyl.wanandroid.data.BannerData;
+import com.dingyl.wanandroid.data.HomeData;
 import com.dingyl.wanandroid.util.Constants;
 import com.google.gson.GsonBuilder;
 
@@ -47,6 +48,11 @@ public class RetrofitHelper {
     public Observable<BannerData> getBannerData(){
         Log.d("TAG",TAG + " getBannerData()");
         return apiService.getBannerData();
+    }
+
+    public Observable<HomeData> getHomeData(int page){
+        Log.d(TAG,TAG + " getHomeData()");
+        return apiService.getHomeData(page);
     }
 
 }
