@@ -1,12 +1,9 @@
 package com.dingyl.wanandroid.fragment;
 
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.dingyl.wanandroid.R;
@@ -15,6 +12,7 @@ import com.dingyl.wanandroid.data.BannerData;
 import com.dingyl.wanandroid.data.HomeData;
 import com.dingyl.wanandroid.data.HomeZipData;
 import com.dingyl.wanandroid.presenter.HomePresenter;
+import com.dingyl.wanandroid.util.SharedPreferenceUtil;
 import com.dingyl.wanandroid.view.BannerImageLoader;
 import com.dingyl.wanandroid.view.BaseView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,14 +33,15 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
     private Banner banner;
     private LinearLayout bannerView;
     private SmartRefreshLayout smartRefreshLayout;
-    private int page = 1;
+    private int page = 0;
     private RecyclerView recyclerView;
     private HomeRecyclerAdapter adapter;
     private ArrayList<BannerData.DataBean> dataBeans;
     private ArrayList<String> urlList;
     private ArrayList<String> titleList;
     private ArrayList<HomeData.DataBeans.DataBean> homeDataBeans;
-    private boolean isRefresh = true;
+    private boolean isRefresh;
+    private SharedPreferenceUtil sharedPreferenceUtil;
 
     public static HomeFragment getInstance() {
         if(homeFragment == null){
@@ -66,6 +65,7 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
 
     @Override
     protected void initData() {
+        sharedPreferenceUtil = SharedPreferenceUtil.getInstance(getContext());
         dataBeans = new ArrayList<>();
         urlList = new ArrayList<>();
         titleList = new ArrayList<>();
@@ -85,15 +85,15 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                isRefresh = true;
-                presenter.getHomeZipData(1);
+                sharedPreferenceUtil.changeHomeDataRefreshFlag(true);
+                presenter.getHomeZipData(0);
             }
         });
         smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 page++;
-                isRefresh = false;
+                sharedPreferenceUtil.changeHomeDataRefreshFlag(false);
                 presenter.getHomeZipData(page);
             }
         });
@@ -108,13 +108,16 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
     public void showSuccess(HomeZipData homeZipData) {
         smartRefreshLayout.finishRefresh();
         smartRefreshLayout.finishLoadmore();
+        adapter.notifyDataSetChanged();
         if(!dataBeans.containsAll(homeZipData.getBannerData().getData())){
             dataBeans = homeZipData.getBannerData().getData();
             Log.d(TAG,"dataBeans size : " + dataBeans.size());
         }
+        isRefresh = sharedPreferenceUtil.getHomeDataRefreshFlag();
         if(isRefresh){
             homeDataBeans.clear();
             homeDataBeans.addAll(homeZipData.getHomeData().getData().getDatas());
+
         }else{
             homeDataBeans.addAll(homeZipData.getHomeData().getData().getDatas());
         }

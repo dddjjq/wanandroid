@@ -31,4 +31,12 @@ public class MyApplication extends Application {
         daoMaster = new DaoMaster(db);
         daoSession = daoMaster.newSession();
     }
+
+    public DaoSession getDaoSession(){
+        return daoSession;
+    }
+
+    public SQLiteDatabase getDb() {
+        return db;
+    }
 }

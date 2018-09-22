@@ -4,4 +4,9 @@ public class Constants {
 
     public static final String WAN_ANDROID_BASE_URL = "http://www.wanandroid.com/";
 
+    public static final String HOME_DATA_Preference = "home_data";
+
+    public static final String HOME_DATA_FLAG = "home_data_flag";
+
+    public static final String HOME_DATA_ID = "home_data_id";
 }
