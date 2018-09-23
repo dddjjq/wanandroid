@@ -12,7 +12,7 @@ public class MyApplication extends Application {
     private DaoMaster.DevOpenHelper helper;
     private SQLiteDatabase db;
     private DaoMaster daoMaster;
-    private DaoSession  daoSession;
+    private DaoSession daoSession;
 
     @Override
     public void onCreate(){

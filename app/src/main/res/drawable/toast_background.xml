@@ -3,13 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid
-        android:color="@android:color/transparent"/>
-    <stroke
-        android:color="#e3d7d7"
-        android:width="1dp"/>
+        android:color="#cf5af0"/>
+
     <size
         android:width="50dp"
         android:height="20dp"/>
+
     <corners
         android:topLeftRadius="20dp"
         android:topRightRadius="20dp"
