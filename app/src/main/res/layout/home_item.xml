@@ -4,10 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_item"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardCornerRadius="5dp"
-    android:elevation="8dp">
+    app:cardCornerRadius="5dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,7 +53,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Android O 适配指南"
-            android:lines="1"
             android:textSize="15sp"/>
         <LinearLayout
             android:layout_width="match_parent"

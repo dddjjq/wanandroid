@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.dingyl.wanandroid.data.BannerData;
 import com.dingyl.wanandroid.data.HomeData;
+import com.dingyl.wanandroid.data.KnowData;
+import com.dingyl.wanandroid.data.ProjData;
 import com.dingyl.wanandroid.util.Constants;
 import com.google.gson.GsonBuilder;
 
@@ -17,23 +19,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
 
     private static final String TAG = "RetrofitHelper";
-    private Context context;
     private OkHttpClient client = new OkHttpClient();
     GsonConverterFactory factory = GsonConverterFactory.create(new GsonBuilder().create());
-    private static RetrofitHelper instance = null;
     private Retrofit retrofit = null;
     private ApiService apiService;
 
-    private RetrofitHelper(Context context){
-        this.context = context;
+    public RetrofitHelper(){
         init();
-    }
-
-    public static RetrofitHelper getInstance(Context context){
-        if(instance == null){
-            instance = new RetrofitHelper(context);
-        }
-        return instance;
     }
 
     private void init(){
@@ -55,4 +47,12 @@ public class RetrofitHelper {
         return apiService.getHomeData(page);
     }
 
+    public Observable<KnowData> getKnowData(){
+        Log.d(TAG,TAG + " getHomeData()");
+        return apiService.getKnowData();
+    }
+
+    public Observable<ProjData> getProjData(){
+        return apiService.getProjData();
+    }
 }

@@ -1,16 +1,13 @@
 package com.dingyl.wanandroid.fragment;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.dingyl.wanandroid.R;
-import com.dingyl.wanandroid.activity.WebActivity;
 import com.dingyl.wanandroid.adapter.HomeRecyclerAdapter;
 import com.dingyl.wanandroid.data.BannerDataBean;
 import com.dingyl.wanandroid.data.HomeDataBean;
@@ -37,7 +34,6 @@ import java.util.ArrayList;
 public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
 
     private static final String TAG = "HomeFragment";
-    private static HomeFragment homeFragment;
     private HomePresenter presenter;
     private Banner banner;
     private LinearLayout bannerView;
@@ -53,13 +49,6 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
     private boolean isRefresh;
     private SharedPreferenceUtil sharedPreferenceUtil;
     private ToastUtil toastUtil;
-
-    public static HomeFragment getInstance() {
-        if(homeFragment == null){
-            homeFragment = new HomeFragment();
-        }
-        return homeFragment;
-    }
 
     @Override
     protected int setLayoutId() {
@@ -140,6 +129,7 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
             }
         });
     }
+
     @Override
     public void onDestroy(){
         super.onDestroy();

@@ -73,9 +73,9 @@ public class MainActivity extends SupportActivity {
 
     private void initData(){
         fragmentList = new ArrayList<>();
-        homeFragment = HomeFragment.getInstance();
-        knowledgeFragment = KnowledgeFragment.getInstance();
-        projectFragment = ProjectFragment.getInstance();
+        homeFragment = new HomeFragment();
+        knowledgeFragment = new KnowledgeFragment();
+        projectFragment = new ProjectFragment();
         userFragment = UserFragment.getInstance();
         fragmentList.add(homeFragment);
         fragmentList.add(knowledgeFragment);

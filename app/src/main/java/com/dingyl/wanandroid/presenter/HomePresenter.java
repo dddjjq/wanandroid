@@ -41,7 +41,7 @@ public class HomePresenter extends BasePresenter {
 
 
     public HomePresenter(Context context){
-        retrofitHelper = RetrofitHelper.getInstance(context);
+        retrofitHelper = new RetrofitHelper();
         sharedPreferenceUtil = SharedPreferenceUtil.getInstance(context);
     }
 

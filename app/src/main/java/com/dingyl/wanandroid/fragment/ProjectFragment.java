@@ -1,19 +1,22 @@
 package com.dingyl.wanandroid.fragment;
 
+import android.support.design.widget.TabLayout;
 import android.view.View;
 
 import com.dingyl.wanandroid.R;
+import com.dingyl.wanandroid.data.ProjData;
+import com.dingyl.wanandroid.data.ProjDataBean;
+import com.dingyl.wanandroid.presenter.ProjPresenter;
+import com.dingyl.wanandroid.view.BaseView;
 
-public class ProjectFragment extends BaseFragment {
+import java.util.ArrayList;
 
-    private static ProjectFragment projectFragment;
+public class ProjectFragment extends BaseFragment implements BaseView<ProjData>{
 
-    public static ProjectFragment getInstance() {
-        if(projectFragment == null){
-            projectFragment = new ProjectFragment();
-        }
-        return projectFragment;
-    }
+    private ProjPresenter presenter;
+    private ArrayList<ProjDataBean> projDataBeanArrayList;
+    private ArrayList<String> titles;
+    private TabLayout tabLayout;
 
     @Override
     protected int setLayoutId() {
@@ -27,6 +30,31 @@ public class ProjectFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        presenter = new ProjPresenter();
+        presenter.getProjData();
+    }
+
+    @Override
+    public void showSuccess(ProjData data) {
+        projDataBeanArrayList = data.getData();
+        for (ProjDataBean pdb : projDataBeanArrayList){
+            titles.add(pdb.getName());
+        }
+
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void showEmpty() {
+
+    }
+
+    @Override
+    public void showLoading() {
 
     }
 }

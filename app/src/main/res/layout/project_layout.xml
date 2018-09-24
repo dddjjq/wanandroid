@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/know_smart_layout"
+        android:id="@+id/proj_smart_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.scwang.smartrefresh.header.PhoenixHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/know_recycler"
+            android:id="@+id/proj_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"/>
@@ -22,16 +21,4 @@
             android:layout_height="wrap_content" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/top_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/top"
-        android:clickable="true"
-        app:elevation="8dp"
-        android:visibility="gone"/>
 </RelativeLayout>

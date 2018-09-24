@@ -26,6 +26,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private static final int TYPE_NORMAL = 1;
     private View headerView;
     private OnHomeItemClick onHomeItemClick;
+    private int realPos;
 
     public HomeRecyclerAdapter(Context context,ArrayList<HomeDataBean> dataDaoBeans){
         this.context = context;
@@ -65,8 +66,9 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         if(getItemViewType(position) == TYPE_HEADER){
             return;
         }
-        Log.d(TAG,"111");
-        int realPos = getRealPosition(position);
+
+        realPos = getRealPosition(position);
+        Log.d(TAG,"realPos is : " + realPos);
         holder.userName.setText(dataDaoBeans.get(realPos).getAuthor());
         holder.publishTime.setText(dataDaoBeans.get(realPos).getNiceDate());
         holder.content.setText(dataDaoBeans.get(realPos).getTitle());
@@ -74,8 +76,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         holder.homeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = dataDaoBeans.get(position).getLink();
-                String title = dataDaoBeans.get(position).getTitle();
+                String url = dataDaoBeans.get(realPos).getLink();
+                String title = dataDaoBeans.get(realPos).getTitle();
                 Tools.startWebActivity(context,url,title);
             }
         });
@@ -89,6 +91,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private int getRealPosition(int position){
         return headerView == null ? position : position - 1;
     }
+
     class HomeViewHolder extends RecyclerView.ViewHolder{
         TextView userName,publishTime,content,rootTitle,rootCategory;
         ImageButton addLoveBtn;
