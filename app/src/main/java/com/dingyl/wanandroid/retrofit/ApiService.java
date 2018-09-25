@@ -4,10 +4,12 @@ import com.dingyl.wanandroid.data.BannerData;
 import com.dingyl.wanandroid.data.HomeData;
 import com.dingyl.wanandroid.data.KnowData;
 import com.dingyl.wanandroid.data.ProjData;
+import com.dingyl.wanandroid.data.ProjEntryData;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -22,4 +24,7 @@ public interface ApiService {
 
     @GET("project/tree/json")
     public Observable<ProjData> getProjData();
+
+    @GET("project/list/{page}/json")
+    public Observable<ProjEntryData> getProjEntryData(@Path("page")int page,@Query("cid")int id);
 }

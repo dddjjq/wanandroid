@@ -77,7 +77,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         WeakReference<Context> reference;
 
-        public SplashHandler(Context context){
+        SplashHandler(Context context){
             reference = new WeakReference<>(context);
         }
 

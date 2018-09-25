@@ -1,8 +1,6 @@
 package com.dingyl.wanandroid.presenter;
 
-import android.util.Log;
-
-import com.dingyl.wanandroid.data.ProjData;
+import com.dingyl.wanandroid.data.ProjEntryData;
 import com.dingyl.wanandroid.retrofit.RetrofitHelper;
 import com.dingyl.wanandroid.view.BaseView;
 
@@ -11,17 +9,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ProjPresenter extends BasePresenter {
+public class ProjEntryPresenter extends BasePresenter {
 
-    private static final String TAG = "ProjPresenter";
-    private BaseView<ProjData> view;
+    private BaseView<ProjEntryData> view;
     private RetrofitHelper retrofitHelper;
-    private ProjData projData;
+    private ProjEntryData projEntryData;
 
-    public ProjPresenter(){
+    public ProjEntryPresenter(){
         retrofitHelper = new RetrofitHelper();
     }
-
     @Override
     public void attachView(BaseView view) {
         this.view = view;
@@ -34,31 +30,29 @@ public class ProjPresenter extends BasePresenter {
         }
     }
 
-    public void getProjData(){
-        retrofitHelper.getProjData()
+    public void getProjEntryData(int page,int id){
+        retrofitHelper.getProjEntryData(page,id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ProjData>() {
+                .subscribe(new Observer<ProjEntryData>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         addDisposable(d);
                     }
 
                     @Override
-                    public void onNext(ProjData mProjData) {
-                        projData = mProjData;
-                        Log.d(TAG,"projData is : " + projData);
+                    public void onNext(ProjEntryData mProjEntryData) {
+                        projEntryData = mProjEntryData;
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         view.showError();
-                        e.printStackTrace();
                     }
 
                     @Override
                     public void onComplete() {
-                        view.showSuccess(projData);
+                        view.showSuccess(projEntryData);
                     }
                 });
     }

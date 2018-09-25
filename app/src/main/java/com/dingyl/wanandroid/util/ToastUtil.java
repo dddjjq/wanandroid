@@ -18,7 +18,7 @@ public class ToastUtil {
     private ImageView toastIamge;//TODO 添加图像toast
     private Toast toast;
     private static final int X_OFF_SET  = 0;
-    private static final int Y_OFF_SET  = 150;
+    private static final int Y_OFF_SET  = 180;
 
     public ToastUtil(Context context){
         this.context = context;

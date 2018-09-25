@@ -7,6 +7,7 @@ import com.dingyl.wanandroid.data.BannerData;
 import com.dingyl.wanandroid.data.HomeData;
 import com.dingyl.wanandroid.data.KnowData;
 import com.dingyl.wanandroid.data.ProjData;
+import com.dingyl.wanandroid.data.ProjEntryData;
 import com.dingyl.wanandroid.util.Constants;
 import com.google.gson.GsonBuilder;
 
@@ -54,5 +55,9 @@ public class RetrofitHelper {
 
     public Observable<ProjData> getProjData(){
         return apiService.getProjData();
+    }
+
+    public Observable<ProjEntryData> getProjEntryData(int page,int id){
+        return apiService.getProjEntryData(page,id);
     }
 }

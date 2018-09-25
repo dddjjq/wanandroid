@@ -37,7 +37,7 @@ public class SharedPreferenceUtil {
         editor.apply();
     }
 
-    public int getHomeDataId(){
+    private int getHomeDataId(){
         sharedPreferences = context.getSharedPreferences(Constants.HOME_DATA_Preference,Context.MODE_PRIVATE);
         return sharedPreferences.getInt(Constants.HOME_DATA_ID,0);
     }
@@ -47,5 +47,17 @@ public class SharedPreferenceUtil {
         editor = sharedPreferences.edit();
         editor.putInt(Constants.HOME_DATA_ID,0);
         editor.apply();
+    }
+
+    public void setProjectLinkType(int type){
+        sharedPreferences = context.getSharedPreferences(Constants.PROJECT_DATA_PREFERENCE,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt(Constants.PROJECT_LINK_TYPE,type);
+        editor.apply();
+    }
+
+    public int getProjectLinkType(){
+        sharedPreferences = context.getSharedPreferences(Constants.PROJECT_DATA_PREFERENCE,Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(Constants.PROJECT_LINK_TYPE,0);
     }
 }

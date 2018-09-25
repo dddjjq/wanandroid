@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/proj_card"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
     android:layout_margin="10dp"
     >
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
         <ImageView
@@ -17,6 +17,7 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:src="@drawable/default_project_img"/>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -24,34 +25,48 @@
             android:orientation="vertical"
             android:layout_toEndOf="@id/proj_image"
             android:layout_margin="10dp">
+
+
             <TextView
                 android:id="@+id/proj_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="开发环境"
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
             <TextView
                 android:id="@+id/proj_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:gravity="top"
                 android:layout_below="@id/proj_title"
                 android:text="Android studio相关 gradle 官方发布"
                 android:textSize="15sp"/>
-            <TextView
-                android:id="@+id/proj_time"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/proj_root"
+                android:layout_below="@id/proj_content"
+                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
-                android:text="2018-09-19"/>
-            <TextView
-                android:id="@+id/proj_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:text="知心猛男"/>
+                android:gravity="bottom"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/proj_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-09-19"/>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/proj_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="知心猛男"/>
+            </LinearLayout>
         </RelativeLayout>
 
 

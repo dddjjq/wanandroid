@@ -9,4 +9,13 @@ public class Constants {
     public static final String HOME_DATA_FLAG = "home_data_flag";
 
     public static final String HOME_DATA_ID = "home_data_id";
+
+    public static final String PROJECT_DATA_PREFERENCE = "project_data";
+
+    public static final String PROJECT_LINK_TYPE = "project_link_type";
+
+    public static final int TYPE_WEB = 0;
+
+    public static final int TYPE_GITHUB = 1;
+
 }
