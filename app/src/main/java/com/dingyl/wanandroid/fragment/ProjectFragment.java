@@ -40,6 +40,12 @@ public class ProjectFragment extends BaseFragment implements BaseView<ProjData>{
         viewPager = view.findViewById(R.id.project_viewpager);
         tabLayout = view.findViewById(R.id.project_tab);
         linkTypeButton = view.findViewById(R.id.link_type_button);
+        int type = SharedPreferenceUtil.getInstance(getContext()).getProjectLinkType();
+        if (type == Constants.TYPE_WEB){
+            linkTypeButton.setImageResource(R.drawable.web);
+        }else {
+            linkTypeButton.setImageResource(R.drawable.github);
+        }
     }
 
     @Override
