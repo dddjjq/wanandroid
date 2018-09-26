@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dingyl.wanandroid.R;
-import com.dingyl.wanandroid.data.ProjEntryData;
 import com.dingyl.wanandroid.data.ProjEntryDataBean;
 import com.dingyl.wanandroid.util.Constants;
 import com.dingyl.wanandroid.util.GlideUtil;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 
 public class ProjectEntryRecyclerAdapter extends RecyclerView.Adapter<ProjectEntryRecyclerAdapter.ProjectViewHolder>{
 
+    private static final String TAG = "EntryRecyclerAdapter";
     private ArrayList<ProjEntryDataBean> projEntryDataBeans;
     private Context context;
     private int currentPosition;
@@ -39,23 +39,22 @@ public class ProjectEntryRecyclerAdapter extends RecyclerView.Adapter<ProjectEnt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
-        currentPosition = position;
-        GlideUtil.loadImage(context,projEntryDataBeans.get(currentPosition).getEnvelopePic(),holder.projItemImage);
-        holder.projItemTitle.setText(projEntryDataBeans.get(currentPosition).getTitle());
-        holder.projItemContent.setText(projEntryDataBeans.get(currentPosition).getDesc());
-        holder.projItemDate.setText(projEntryDataBeans.get(currentPosition).getNiceDate());
-        holder.projItemAuthor.setText(projEntryDataBeans.get(currentPosition).getAuthor());
+    public void onBindViewHolder(@NonNull ProjectViewHolder holder, final int position) {
+        GlideUtil.loadImage(context,projEntryDataBeans.get(position).getEnvelopePic(),holder.projItemImage);
+        holder.projItemTitle.setText(projEntryDataBeans.get(position).getTitle());
+        holder.projItemContent.setText(projEntryDataBeans.get(position).getDesc());
+        holder.projItemDate.setText(projEntryDataBeans.get(position).getNiceDate());
+        holder.projItemAuthor.setText(projEntryDataBeans.get(position).getAuthor());
         holder.projItemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int type = SharedPreferenceUtil.getInstance(context).getProjectLinkType();
                 if (type == Constants.TYPE_WEB){
-                    Tools.startWebActivity(context,projEntryDataBeans.get(currentPosition).getLink()
-                            ,projEntryDataBeans.get(currentPosition).getTitle());
+                    Tools.startWebActivity(context,projEntryDataBeans.get(position).getLink()
+                            ,projEntryDataBeans.get(position).getTitle());
                 }else {
-                    Tools.startWebActivity(context,projEntryDataBeans.get(currentPosition).getProjectLink()
-                            ,projEntryDataBeans.get(currentPosition).getTitle());
+                    Tools.startWebActivity(context,projEntryDataBeans.get(position).getProjectLink()
+                            ,projEntryDataBeans.get(position).getTitle());
                 }
             }
         });
