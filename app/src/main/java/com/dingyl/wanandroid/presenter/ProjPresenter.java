@@ -35,6 +35,7 @@ public class ProjPresenter extends BasePresenter {
     }
 
     public void getProjData(){
+        view.showLoading();
         retrofitHelper.getProjData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

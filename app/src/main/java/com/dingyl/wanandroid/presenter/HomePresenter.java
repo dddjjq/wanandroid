@@ -89,6 +89,7 @@ public class HomePresenter extends BasePresenter {
     }
 
     public void getHomeZipData(int page) {
+        baseView.showLoading();
         Observable.zip(retrofitHelper.getBannerData(), retrofitHelper.getHomeData(page),
                 new BiFunction<BannerData, HomeData, HomeZipData>() {
                     @Override

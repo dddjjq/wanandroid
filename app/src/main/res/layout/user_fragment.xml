@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#65ebf2"
+        android:background="#3fdba2"
         android:layout_weight="2">
 
         <com.dingyl.wanandroid.view.CircleButton
@@ -32,19 +32,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-        <android.support.v7.widget.CardView
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:id="@+id/love_card"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
+            android:background="@drawable/user_item_background"
+            android:clickable="true"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
                 <ImageView
                     android:id="@+id/love_image"
                     android:layout_width="30dp"
@@ -67,21 +70,22 @@
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/enter"/>
             </RelativeLayout>
-
-
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
+        </FrameLayout>
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:id="@+id/todo_card"
             android:layout_below="@id/love_card"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
+            android:background="@drawable/user_item_background"
+            android:clickable="true"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
                 <ImageView
                     android:id="@+id/todo_image"
                     android:layout_width="30dp"
@@ -106,19 +110,22 @@
             </RelativeLayout>
 
 
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
+        </FrameLayout>
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:id="@+id/author_card"
             android:layout_below="@id/todo_card"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
+            android:background="@drawable/user_item_background"
+            android:clickable="true"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
                 <ImageView
                     android:id="@+id/author_image"
                     android:layout_width="35dp"
@@ -143,6 +150,8 @@
             </RelativeLayout>
 
 
-        </android.support.v7.widget.CardView>
+        </FrameLayout>
     </RelativeLayout>
+    <include layout="@layout/loading_layout"/>
+    <include layout="@layout/error_layout"/>
 </LinearLayout>

@@ -31,6 +31,11 @@ public class ProjectFragment extends BaseFragment implements BaseView<ProjData>{
     private ToastUtil toastUtil;
 
     @Override
+    protected void initAnim() {
+
+    }
+
+    @Override
     protected int setLayoutId() {
         return R.layout.project_fragment;
     }

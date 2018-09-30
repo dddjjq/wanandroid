@@ -8,6 +8,11 @@ public class UserFragment extends BaseFragment {
 
 
     @Override
+    protected void initAnim() {
+
+    }
+
+    @Override
     protected int setLayoutId() {
         return R.layout.user_fragment;
     }

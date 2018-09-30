@@ -4,12 +4,14 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.dingyl.wanandroid.R;
 import com.dingyl.wanandroid.adapter.ProjectEntryRecyclerAdapter;
 import com.dingyl.wanandroid.data.ProjEntryData;
 import com.dingyl.wanandroid.data.ProjEntryDataBean;
 import com.dingyl.wanandroid.presenter.ProjEntryPresenter;
+import com.dingyl.wanandroid.util.Constants;
 import com.dingyl.wanandroid.util.ToastUtil;
 import com.dingyl.wanandroid.view.BaseView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -31,6 +33,10 @@ public class ProjectEntryFragment extends BaseFragment implements BaseView<ProjE
     private int totalCount;
     private ToastUtil toastUtil;
     private boolean isRefresh = true;
+    private View loadingView;
+    private View errorView;
+    private View emptyView;
+    private int currentState;
 
     @Override
     protected int setLayoutId() {
@@ -46,6 +52,7 @@ public class ProjectEntryFragment extends BaseFragment implements BaseView<ProjE
 
     @Override
     protected void initData() {
+        showLoading();
         id = getArguments().getInt("id");
         presenter = new ProjEntryPresenter();
         presenter.attachView(this);
@@ -59,7 +66,28 @@ public class ProjectEntryFragment extends BaseFragment implements BaseView<ProjE
     }
 
     @Override
+    protected void initAnim() {
+        ViewGroup parent = (ViewGroup) smartRefreshLayout.getParent();
+        View.inflate(getActivity(),R.layout.loading_layout,parent);
+        View.inflate(getActivity(),R.layout.error_layout,parent);
+        View.inflate(getActivity(),R.layout.empty_layout,parent);
+        loadingView = parent.findViewById(R.id.loading_layout);
+        errorView = parent.findViewById(R.id.error_layout);
+        emptyView = parent.findViewById(R.id.empty_layout);
+        loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.GONE);
+        smartRefreshLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showSuccess(ProjEntryData data) {
+        hideCurrentView();
+        currentState = Constants.STATE_SUCCESS;
+        smartRefreshLayout.setVisibility(View.VISIBLE);
+        if (projEntryDataBeans == null){
+            showEmpty();
+        }
         smartRefreshLayout.finishRefresh();
         smartRefreshLayout.finishLoadmore();
         if (isRefresh){
@@ -74,12 +102,18 @@ public class ProjectEntryFragment extends BaseFragment implements BaseView<ProjE
 
     @Override
     public void showError() {
-
+        if (projEntryDataBeans == null){
+            hideCurrentView();
+            currentState = Constants.STATE_ERROR;
+            errorView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void showEmpty() {
-
+        hideCurrentView();
+        currentState = Constants.STATE_EMPTY;
+        emptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -114,5 +148,22 @@ public class ProjectEntryFragment extends BaseFragment implements BaseView<ProjE
             }
         });
 
+    }
+
+    private void hideCurrentView(){
+        switch (currentState){
+            case Constants.STATE_SUCCESS:
+                smartRefreshLayout.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_LOADING:
+                loadingView.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_ERROR:
+                errorView.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_EMPTY:
+                emptyView.setVisibility(View.GONE);
+                break;
+        }
     }
 }

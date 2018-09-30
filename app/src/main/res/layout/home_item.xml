@@ -75,6 +75,7 @@
                 android:text="项目"
                 android:textSize="12sp"
                 android:layout_marginLeft="10dp"
+                android:gravity="center"
                 android:background="@drawable/item_root_category"/>
             <Space
                 android:layout_width="0dp"

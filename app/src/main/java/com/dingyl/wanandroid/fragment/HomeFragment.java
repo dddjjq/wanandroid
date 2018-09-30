@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.dingyl.wanandroid.R;
@@ -15,6 +16,7 @@ import com.dingyl.wanandroid.data.HomeZipData;
 import com.dingyl.wanandroid.greendaoutil.BannerDataDaoUtil;
 import com.dingyl.wanandroid.presenter.HomePresenter;
 import com.dingyl.wanandroid.greendaoutil.HomeDataDaoUtil;
+import com.dingyl.wanandroid.util.Constants;
 import com.dingyl.wanandroid.util.NetworkUtil;
 import com.dingyl.wanandroid.util.SharedPreferenceUtil;
 import com.dingyl.wanandroid.util.ToastUtil;
@@ -49,6 +51,10 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
     private boolean isRefresh;
     private SharedPreferenceUtil sharedPreferenceUtil;
     private ToastUtil toastUtil;
+    private View loadingView;
+    private View errorView;
+    private View emptyView;
+    private int currentState;
 
     @Override
     protected int setLayoutId() {
@@ -66,6 +72,7 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
 
     @Override
     protected void initData() {
+        showLoading();
         sharedPreferenceUtil = SharedPreferenceUtil.getInstance(getContext());
         bannerDataBeans = new ArrayList<>();
         urlList = new ArrayList<>();
@@ -84,9 +91,25 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
             homeDataBeans.addAll(HomeDataDaoUtil.getInstance().queryDataList());
             bannerDataBeans.addAll(BannerDataDaoUtil.getInstance().queryDataList());
             startBanner();
+            hideNotNormalView();
         }else {
             presenter.getHomeZipData(0);
         }
+    }
+
+    @Override
+    protected void initAnim() {
+        ViewGroup parent = (ViewGroup) smartRefreshLayout.getParent();
+        View.inflate(getActivity(),R.layout.loading_layout,parent);
+        View.inflate(getActivity(),R.layout.error_layout,parent);
+        View.inflate(getActivity(),R.layout.empty_layout,parent);
+        loadingView = parent.findViewById(R.id.loading_layout);
+        errorView = parent.findViewById(R.id.error_layout);
+        emptyView = parent.findViewById(R.id.empty_layout);
+        loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.GONE);
+        smartRefreshLayout.setVisibility(View.VISIBLE);
     }
 
     private void initListener(){
@@ -138,6 +161,12 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
 
     @Override
     public void showSuccess(HomeZipData homeZipData) {
+        hideCurrentView();
+        currentState = Constants.STATE_SUCCESS;
+        smartRefreshLayout.setVisibility(View.VISIBLE);
+        if (homeZipData == null){
+            showEmpty();
+        }
         smartRefreshLayout.finishRefresh();
         smartRefreshLayout.finishLoadmore();
         adapter.notifyDataSetChanged();
@@ -158,6 +187,11 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
 
     @Override
     public void showError() {
+        if (homeDataBeans == null){
+            hideCurrentView();
+            currentState = Constants.STATE_ERROR;
+            errorView.setVisibility(View.VISIBLE);
+        }
         smartRefreshLayout.finishRefresh();
         smartRefreshLayout.finishLoadmore();
         toastUtil.makeText(getResources().getString(R.string.error_tips));
@@ -165,12 +199,18 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
 
     @Override
     public void showEmpty() {
-
+        hideCurrentView();
+        currentState = Constants.STATE_EMPTY;
+        emptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showLoading() {
-
+        if (homeDataBeans == null){
+            hideCurrentView();
+            currentState = Constants.STATE_LOADING;
+            loadingView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void startBanner(){
@@ -199,4 +239,26 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
         });
     }
 
+    private void hideCurrentView(){
+        switch (currentState){
+            case Constants.STATE_SUCCESS:
+                smartRefreshLayout.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_LOADING:
+                loadingView.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_ERROR:
+                errorView.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_EMPTY:
+                emptyView.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    private void hideNotNormalView(){
+        loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.GONE);
+    }
 }

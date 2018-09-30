@@ -5,11 +5,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.dingyl.wanandroid.R;
 import com.dingyl.wanandroid.adapter.KnowRecyclerAdapter;
 import com.dingyl.wanandroid.data.KnowData;
 import com.dingyl.wanandroid.presenter.KnowPresenter;
+import com.dingyl.wanandroid.util.Constants;
 import com.dingyl.wanandroid.view.BaseView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -26,6 +28,10 @@ public class KnowledgeFragment extends BaseFragment implements BaseView<KnowData
     private ArrayList<KnowData.DataBean> knowDataArrayList;
     private KnowRecyclerAdapter adapter;
     private FloatingActionButton topButton;
+    private View loadingView;
+    private View errorView;
+    private View emptyView;
+    private int currentState;
 
     @Override
     protected int setLayoutId() {
@@ -41,6 +47,7 @@ public class KnowledgeFragment extends BaseFragment implements BaseView<KnowData
 
     @Override
     protected void initData() {
+        showLoading();
         presenter = new KnowPresenter(getContext());
         presenter.attachView(this);
         knowDataArrayList = new ArrayList<>();
@@ -53,7 +60,28 @@ public class KnowledgeFragment extends BaseFragment implements BaseView<KnowData
     }
 
     @Override
+    protected void initAnim() {
+        ViewGroup parent = (ViewGroup) smartRefreshLayout.getParent();
+        View.inflate(getActivity(),R.layout.loading_layout,parent);
+        View.inflate(getActivity(),R.layout.error_layout,parent);
+        View.inflate(getActivity(),R.layout.empty_layout,parent);
+        loadingView = parent.findViewById(R.id.loading_layout);
+        errorView = parent.findViewById(R.id.error_layout);
+        emptyView = parent.findViewById(R.id.empty_layout);
+        loadingView.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.GONE);
+        smartRefreshLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showSuccess(KnowData data) {
+        hideCurrentView();
+        currentState = Constants.STATE_SUCCESS;
+        smartRefreshLayout.setVisibility(View.VISIBLE);
+        if (knowDataArrayList == null){
+            showEmpty();
+        }
         smartRefreshLayout.finishRefresh();
         smartRefreshLayout.finishLoadmore();
         knowDataArrayList.addAll(data.getData());
@@ -63,17 +91,27 @@ public class KnowledgeFragment extends BaseFragment implements BaseView<KnowData
 
     @Override
     public void showError() {
-
+        if (knowDataArrayList == null){
+            hideCurrentView();
+            currentState = Constants.STATE_ERROR;
+            errorView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void showEmpty() {
-
+        hideCurrentView();
+        currentState = Constants.STATE_EMPTY;
+        emptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showLoading() {
-
+        if (knowDataArrayList == null){
+            hideCurrentView();
+            currentState = Constants.STATE_LOADING;
+            loadingView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -111,5 +149,22 @@ public class KnowledgeFragment extends BaseFragment implements BaseView<KnowData
                 }
             }
         });
+    }
+
+    private void hideCurrentView(){
+        switch (currentState){
+            case Constants.STATE_SUCCESS:
+                smartRefreshLayout.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_LOADING:
+                loadingView.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_ERROR:
+                errorView.setVisibility(View.GONE);
+                break;
+            case Constants.STATE_EMPTY:
+                emptyView.setVisibility(View.GONE);
+                break;
+        }
     }
 }

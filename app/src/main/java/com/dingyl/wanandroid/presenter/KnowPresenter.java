@@ -39,6 +39,7 @@ public class KnowPresenter extends BasePresenter {
     }
 
     public void getKnowData(){
+        baseView.showLoading();
         retrofitHelper.getKnowData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

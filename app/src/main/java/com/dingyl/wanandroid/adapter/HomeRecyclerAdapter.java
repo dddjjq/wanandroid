@@ -26,7 +26,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private static final int TYPE_NORMAL = 1;
     private View headerView;
     private OnHomeItemClick onHomeItemClick;
-    private int realPos;
 
     public HomeRecyclerAdapter(Context context,ArrayList<HomeDataBean> dataDaoBeans){
         this.context = context;
@@ -67,7 +66,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             return;
         }
 
-        realPos = getRealPosition(position);
+        final int realPos = getRealPosition(position);
         Log.d(TAG,"realPos is : " + realPos);
         holder.userName.setText(dataDaoBeans.get(realPos).getAuthor());
         holder.publishTime.setText(dataDaoBeans.get(realPos).getNiceDate());
@@ -81,6 +80,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 Tools.startWebActivity(context,url,title);
             }
         });
+        boolean isProject = dataDaoBeans.get(realPos).getChapterName().equals("完整项目");
+        if (isProject){
+            holder.rootCategory.setVisibility(View.VISIBLE);
+        }else {
+            holder.rootCategory.setVisibility(View.GONE);
+        }
     }
 
     @Override

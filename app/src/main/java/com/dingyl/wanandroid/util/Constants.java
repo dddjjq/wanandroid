@@ -18,4 +18,11 @@ public class Constants {
 
     public static final int TYPE_GITHUB = 1;
 
+    public static final int STATE_LOADING = 0;
+
+    public static final int STATE_ERROR = 1;
+
+    public static final int STATE_EMPTY = 2;
+
+    public static final int STATE_SUCCESS = 3;
 }
