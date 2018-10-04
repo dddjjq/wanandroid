@@ -1,9 +1,12 @@
 package com.dingyl.wanandroid.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -22,6 +25,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 
 public class MainActivity extends SupportActivity {
 
+    private static final String TAG = "MainActivity";
     private BottomNavigationView navigationView;
     private List<BaseFragment> fragmentList;
     private HomeFragment homeFragment;
@@ -92,4 +96,5 @@ public class MainActivity extends SupportActivity {
             }
         }
     }
+
 }

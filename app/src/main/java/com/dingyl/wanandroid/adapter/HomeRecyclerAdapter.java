@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.dingyl.wanandroid.R;
 import com.dingyl.wanandroid.data.HomeDataBean;
+import com.dingyl.wanandroid.util.SharedPreferenceUtil;
+import com.dingyl.wanandroid.util.ToastUtil;
 import com.dingyl.wanandroid.util.Tools;
 
 import java.util.ArrayList;
@@ -26,10 +28,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private static final int TYPE_NORMAL = 1;
     private View headerView;
     private OnHomeItemClick onHomeItemClick;
+    private ToastUtil toastUtil;
 
     public HomeRecyclerAdapter(Context context,ArrayList<HomeDataBean> dataDaoBeans){
         this.context = context;
         this.dataDaoBeans = dataDaoBeans;
+        toastUtil = new ToastUtil(context);
         Log.d(TAG,"dataBeans size : " + dataDaoBeans.size());
     }
 
@@ -78,6 +82,18 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 String url = dataDaoBeans.get(realPos).getLink();
                 String title = dataDaoBeans.get(realPos).getTitle();
                 Tools.startWebActivity(context,url,title);
+            }
+        });
+        holder.addLoveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO for collect
+                boolean isLogin = SharedPreferenceUtil.getInstance(context).isLogin();
+                if (isLogin){
+
+                }else {
+                    toastUtil.makeText("请先登录！");
+                }
             }
         });
         boolean isProject = dataDaoBeans.get(realPos).getChapterName().equals("完整项目");

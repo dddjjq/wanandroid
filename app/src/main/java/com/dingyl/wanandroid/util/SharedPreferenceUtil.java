@@ -60,4 +60,30 @@ public class SharedPreferenceUtil {
         sharedPreferences = context.getSharedPreferences(Constants.PROJECT_DATA_PREFERENCE,Context.MODE_PRIVATE);
         return sharedPreferences.getInt(Constants.PROJECT_LINK_TYPE,0);
     }
+
+    public void saveLoginData(String username,String password){
+        sharedPreferences = context.getSharedPreferences(Constants.USER_DATA_PREFERENCE,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString(Constants.USER_DATA_NAME,username);
+        editor.putString(Constants.USER_DATA_PASSWORD,password);
+        editor.putBoolean(Constants.IS_LOGIN,true);
+        editor.apply();
+    }
+
+    public boolean isLogin(){
+        sharedPreferences = context.getSharedPreferences(Constants.USER_DATA_PREFERENCE,Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(Constants.IS_LOGIN,false);
+    }
+
+    public String getUserName(){
+        sharedPreferences = context.getSharedPreferences(Constants.USER_DATA_PREFERENCE,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Constants.USER_DATA_NAME,"");
+    }
+
+    public void clearUserData(){
+        sharedPreferences = context.getSharedPreferences(Constants.USER_DATA_PREFERENCE,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }

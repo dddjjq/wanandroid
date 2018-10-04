@@ -6,6 +6,7 @@ import android.util.Log;
 import com.dingyl.wanandroid.data.BannerData;
 import com.dingyl.wanandroid.data.HomeData;
 import com.dingyl.wanandroid.data.KnowData;
+import com.dingyl.wanandroid.data.LoginData;
 import com.dingyl.wanandroid.data.ProjData;
 import com.dingyl.wanandroid.data.ProjEntryData;
 import com.dingyl.wanandroid.util.Constants;
@@ -59,5 +60,9 @@ public class RetrofitHelper {
 
     public Observable<ProjEntryData> getProjEntryData(int page,int id){
         return apiService.getProjEntryData(page,id);
+    }
+
+    public Observable<LoginData> getLoginData(String username,String password){
+        return apiService.getLoginData(username,password);
     }
 }

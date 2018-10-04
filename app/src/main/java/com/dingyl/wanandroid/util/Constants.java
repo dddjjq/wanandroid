@@ -14,6 +14,14 @@ public class Constants {
 
     public static final String PROJECT_LINK_TYPE = "project_link_type";
 
+    public static final String USER_DATA_PREFERENCE = "user_data";
+
+    public static final String USER_DATA_NAME = "user_data_name";
+
+    public static final String USER_DATA_PASSWORD = "user_data_password";
+
+    public static final String IS_LOGIN = "is_login";
+
     public static final int TYPE_WEB = 0;
 
     public static final int TYPE_GITHUB = 1;
