@@ -9,7 +9,7 @@ public class CollectDataBean {
     private String envelopePic;
     private int id;
     private String link;
-    private int niceDate;
+    private String niceDate;
     private String origin;
     private int originId;
     private long publishTime;
@@ -82,11 +82,11 @@ public class CollectDataBean {
         this.link = link;
     }
 
-    public int getNiceDate() {
+    public String getNiceDate() {
         return niceDate;
     }
 
-    public void setNiceDate(int niceDate) {
+    public void setNiceDate(String niceDate) {
         this.niceDate = niceDate;
     }
 

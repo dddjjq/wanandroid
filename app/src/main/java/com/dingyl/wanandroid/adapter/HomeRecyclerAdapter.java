@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dingyl.wanandroid.R;
 import com.dingyl.wanandroid.data.HomeDataBean;
+import com.dingyl.wanandroid.presenter.HomePresenter;
 import com.dingyl.wanandroid.util.SharedPreferenceUtil;
 import com.dingyl.wanandroid.util.ToastUtil;
 import com.dingyl.wanandroid.util.Tools;
@@ -29,10 +30,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private View headerView;
     private OnHomeItemClick onHomeItemClick;
     private ToastUtil toastUtil;
+    private HomePresenter presenter;
 
-    public HomeRecyclerAdapter(Context context,ArrayList<HomeDataBean> dataDaoBeans){
+    public HomeRecyclerAdapter(Context context,ArrayList<HomeDataBean> dataDaoBeans,HomePresenter presenter){
         this.context = context;
         this.dataDaoBeans = dataDaoBeans;
+        this.presenter = presenter;
         toastUtil = new ToastUtil(context);
         Log.d(TAG,"dataBeans size : " + dataDaoBeans.size());
     }
@@ -90,7 +93,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 //TODO for collect
                 boolean isLogin = SharedPreferenceUtil.getInstance(context).isLogin();
                 if (isLogin){
-
+                    presenter.addCollect(dataDaoBeans.get(realPos).getAnotherId());
                 }else {
                     toastUtil.makeText("请先登录！");
                 }

@@ -78,15 +78,15 @@ public class HomeFragment extends BaseFragment implements BaseView<HomeZipData>{
         urlList = new ArrayList<>();
         titleList = new ArrayList<>();
         homeDataBeans = new ArrayList<>();
-        adapter = new HomeRecyclerAdapter(getContext(),homeDataBeans);
         toastUtil = new ToastUtil(getContext());
-        adapter.setHeaderView(bannerView);
-        recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         initListener();
         presenter = new HomePresenter(getContext());
         presenter.attachView(this);
+        adapter = new HomeRecyclerAdapter(getContext(),homeDataBeans,presenter);
+        adapter.setHeaderView(bannerView);
+        recyclerView.setAdapter(adapter);
         if(!NetworkUtil.isNetworkAvailable(getContext()) && (HomeDataDaoUtil.getInstance().queryDataList() != null) && (BannerDataDaoUtil.getInstance().queryDataList() != null)){
             homeDataBeans.addAll(HomeDataDaoUtil.getInstance().queryDataList());
             bannerDataBeans.addAll(BannerDataDaoUtil.getInstance().queryDataList());

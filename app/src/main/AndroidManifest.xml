@@ -24,15 +24,15 @@
         <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.WebActivity"
-            android:launchMode="singleTask">
-
-        </activity>
-        <activity android:name=".activity.LoginActivity"
+            android:launchMode="singleTask"></activity>
+        <activity
+            android:name=".activity.LoginActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.CollectActivity"></activity>
     </application>
 
 </manifest>

@@ -8,9 +8,33 @@ public class CollectData {
     private int errorCode;
     private String errorMsg;
 
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
     public class DataBean{
         private int curPage;
-        private ArrayList<CollectData> datas;
+        private ArrayList<CollectDataBean> datas;
         private int offset;
         private boolean over;
         private int pageCount;
@@ -25,11 +49,11 @@ public class CollectData {
             this.curPage = curPage;
         }
 
-        public ArrayList<CollectData> getDatas() {
+        public ArrayList<CollectDataBean> getDatas() {
             return datas;
         }
 
-        public void setDatas(ArrayList<CollectData> datas) {
+        public void setDatas(ArrayList<CollectDataBean> datas) {
             this.datas = datas;
         }
 

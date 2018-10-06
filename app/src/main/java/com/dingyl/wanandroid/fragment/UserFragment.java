@@ -14,9 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dingyl.wanandroid.R;
+import com.dingyl.wanandroid.activity.CollectActivity;
 import com.dingyl.wanandroid.activity.LoginActivity;
 import com.dingyl.wanandroid.util.SharedPreferenceUtil;
 import com.dingyl.wanandroid.util.ToastUtil;
+import com.dingyl.wanandroid.util.Tools;
 import com.dingyl.wanandroid.view.CircleButton;
 
 public class UserFragment extends BaseFragment {
@@ -31,6 +33,7 @@ public class UserFragment extends BaseFragment {
     private PopupWindow popupWindow;
     private Button logoutButton,cancelButton;
     private ToastUtil toastUtil;
+    private RelativeLayout collectButton;
 
     @Override
     protected void initAnim() {
@@ -47,6 +50,7 @@ public class UserFragment extends BaseFragment {
         userIcon = view.findViewById(R.id.user_button);
         userNameText = view.findViewById(R.id.user_name_text);
         layout = view.findViewById(R.id.user_fragment_layout);
+        collectButton = view.findViewById(R.id.collect_button);
         showLogoutPopWindow();
     }
 
@@ -65,6 +69,17 @@ public class UserFragment extends BaseFragment {
                         popupWindow.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
                         //Log.d(TAG,"popwindow isShowing : " + popupWindow.isShowing());
                     }
+                }
+            }
+        });
+        collectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isLogin = SharedPreferenceUtil.getInstance(getContext()).isLogin();
+                if (isLogin){
+                    Tools.startActivityWithNothing(getContext(), CollectActivity.class);
+                }else {
+                    toastUtil.makeText("请先登录!");
                 }
             }
         });

@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#3fdba2"
+        android:background="#444a48"
         android:layout_weight="2">
 
         <com.dingyl.wanandroid.view.CircleButton
@@ -49,7 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="10dp"
+                android:id="@+id/collect_button">
                 <ImageView
                     android:id="@+id/love_image"
                     android:layout_width="30dp"

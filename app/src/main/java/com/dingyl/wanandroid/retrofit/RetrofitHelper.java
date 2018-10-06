@@ -3,6 +3,8 @@ package com.dingyl.wanandroid.retrofit;
 import android.util.Log;
 
 import com.dingyl.wanandroid.data.BannerData;
+import com.dingyl.wanandroid.data.BaseData;
+import com.dingyl.wanandroid.data.CollectData;
 import com.dingyl.wanandroid.data.HomeData;
 import com.dingyl.wanandroid.data.KnowData;
 import com.dingyl.wanandroid.data.LoginData;
@@ -36,15 +38,6 @@ public class RetrofitHelper {
 
     private void init(){
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request original = chain.request();
-                        Request.Builder requestBuilder = original.newBuilder();
-                        Request request = requestBuilder.build();
-                        return chain.proceed(request);
-                    }
-                })
                 .addInterceptor(new ReceiveCookiesInterceptor())
                 .addInterceptor(new CookiesInterceptor());
         retrofit = new Retrofit.Builder()
@@ -81,5 +74,13 @@ public class RetrofitHelper {
 
     public Observable<LoginData> getLoginData(String username,String password){
         return apiService.getLoginData(username,password);
+    }
+
+    public Observable<BaseData> addCollectWithId(int id){
+        return apiService.addCollectWithId(id);
+    }
+
+    public Observable<CollectData> getCollectData(int page){
+        return apiService.getCollectList(page);
     }
 }

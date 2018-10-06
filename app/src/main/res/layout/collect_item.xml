@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/collect_item"
+    android:padding="10dp"
+    android:background="@drawable/collect_item_background">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/collect_layout_top">
+        <ImageView
+            android:id="@+id/collect_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/item_icon_test"
+            android:layout_centerVertical="true"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/collect_icon"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/collect_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="minmin_1123"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/collect_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="17分钟前"
+                android:textColor="#726c6c"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/collect_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="面试相关"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/collect_title"
+        android:layout_below="@id/collect_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="2019校招Android面试题解1.0"
+        android:textSize="16sp"
+        android:textColor="#000000"/>
+</RelativeLayout>
