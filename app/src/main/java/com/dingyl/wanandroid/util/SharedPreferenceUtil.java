@@ -3,6 +3,8 @@ package com.dingyl.wanandroid.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.HashSet;
+
 public class SharedPreferenceUtil {
 
     private SharedPreferences sharedPreferences;
@@ -85,5 +87,17 @@ public class SharedPreferenceUtil {
         editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    public void receiveCookies(HashSet<String> cookies){
+        sharedPreferences = context.getSharedPreferences(Constants.COOKIES_PREFERENCE,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putStringSet(Constants.COOKIES_STR,cookies);
+        editor.apply();
+    }
+
+    public HashSet<String> getCookies(){
+        sharedPreferences = context.getSharedPreferences(Constants.COOKIES_PREFERENCE,Context.MODE_PRIVATE);
+        return (HashSet<String>) sharedPreferences.getStringSet(Constants.COOKIES_STR,new HashSet<String>());
     }
 }

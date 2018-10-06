@@ -22,6 +22,12 @@ public class Constants {
 
     public static final String IS_LOGIN = "is_login";
 
+    //add for cookies start
+    public static final String COOKIES_PREFERENCE = "cookies_preference";
+
+    public static final String COOKIES_STR = "cookies";
+    //add for cookies end
+
     public static final int TYPE_WEB = 0;
 
     public static final int TYPE_GITHUB = 1;

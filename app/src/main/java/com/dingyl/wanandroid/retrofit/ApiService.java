@@ -1,6 +1,8 @@
 package com.dingyl.wanandroid.retrofit;
 
 import com.dingyl.wanandroid.data.BannerData;
+import com.dingyl.wanandroid.data.BaseData;
+import com.dingyl.wanandroid.data.CollectData;
 import com.dingyl.wanandroid.data.HomeData;
 import com.dingyl.wanandroid.data.KnowData;
 import com.dingyl.wanandroid.data.LoginData;
@@ -33,6 +35,13 @@ public interface ApiService {
     public Observable<ProjEntryData> getProjEntryData(@Path("page")int page,@Query("cid")int id);
 
     @FormUrlEncoded
-    @POST("/user/login")
+    @POST("user/login")
     public Observable<LoginData> getLoginData(@Field("username")String username,@Field("password")String password);
+
+    @GET("lg/collect/list/{page}/json")
+    public Observable<CollectData> getCollectList(@Path("page")int page);
+
+    @POST("lg/collect/{id}/json")
+    public Observable<BaseData> addCollectWithId(@Path("id")int id);
+
 }
