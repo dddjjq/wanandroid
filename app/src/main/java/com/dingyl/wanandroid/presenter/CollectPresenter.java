@@ -59,7 +59,7 @@ public class CollectPresenter extends BasePresenter {
 
                     @Override
                     public void onComplete() {
-                        if (collectData.getData().getDatas() != null){}
+                        if (collectData.getData()!= null){}
                             baseView.showSuccess(collectData);
                     }
                 });

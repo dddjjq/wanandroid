@@ -1,5 +1,7 @@
 package com.dingyl.wanandroid.activity;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +36,7 @@ public class CollectActivity extends AppCompatActivity implements BaseView<Colle
     private int page = 0;
     private boolean isRefresh = true;
     private ActionBar actionBar;
-    private int totalPage = 1;
+    private int totalPage = 0;
     private ToastUtil toastUtil;
 
     @Override
@@ -92,15 +94,23 @@ public class CollectActivity extends AppCompatActivity implements BaseView<Colle
                     presenter.getCollectData(page);
                 }else {
                     smartRefreshLayout.finishLoadmore();
+                    /**
+                     * handler 和 runOnUiThread 两种实现
+                     */
+                    //handler.sendEmptyMessageDelayed(0,1000);
                     new Thread(){
-                        @Override
                         public void run(){
-                            try{
-                                Thread.sleep(1000); // smartRefreshLayout 停止刷新需要1s
+                            try {
+                                sleep(1000);
                             }catch (InterruptedException e){
                                 e.printStackTrace();
                             }
-                            toastUtil.makeText("已经到底了!");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    toastUtil.makeText("已经到底了!");
+                                }
+                            });
                         }
                     }.start();
                 }
@@ -108,6 +118,12 @@ public class CollectActivity extends AppCompatActivity implements BaseView<Colle
         });
     }
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message message){
+            toastUtil.makeText("已经到底了!");
+        }
+    };
 
     @Override
     public void onStop(){
